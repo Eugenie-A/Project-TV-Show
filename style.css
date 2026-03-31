@@ -1,3 +1,4 @@
+/* Base page styles */
 body {
   font-family: sans-serif;
   background-color: #f5f5f5;
@@ -5,12 +6,14 @@ body {
   padding: 20px;
 }
 
+/* Grid layout for episode cards */
 #root {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
+/* Individual episode card */
 .episode-card {
   background-color: white;
   border: 1px solid #ddd;
@@ -21,6 +24,7 @@ body {
   align-items: flex-start;
 }
 
+/* Bordered header section inside each card */
 .episode-header {
   border: 2px solid black;
   border-radius: 8px;
@@ -31,23 +35,27 @@ body {
   box-sizing: border-box;
 }
 
+/* Episode title */
 .episode-card h3 {
   font-size: 1rem;
   text-align: center;
   margin-bottom: 10px;
 }
 
+/* Episode image */
 .episode-card img {
   width: 100%;
   height: auto;
   margin-bottom: 10px;
 }
 
+/* Episode summary text */
 .episode-card p {
   font-size: 0.85rem;
   color: #333;
 }
 
+/* Footer TVMaze Credit */
 footer {
   text-align: center;
   margin-top: 30px;
