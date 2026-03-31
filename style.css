@@ -16,7 +16,7 @@ body {
 /* Individual episode card */
 .episode-card {
   background-color: white;
-  border: 1px solid #ddd;
+  border: 1px solid #dddddd;
   border-radius: 10px;
   padding: 15px;
   display: flex;
@@ -52,7 +52,7 @@ body {
 /* Episode summary text */
 .episode-card p {
   font-size: 0.85rem;
-  color: #333;
+  color: #333333;
 }
 
 /* Footer TVMaze Credit */
@@ -60,5 +60,5 @@ footer {
   text-align: center;
   margin-top: 30px;
   font-size: 0.85rem;
-  color: #666;
+  color: #666666;
 }
