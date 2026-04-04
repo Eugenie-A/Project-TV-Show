@@ -1,7 +1,7 @@
 /* Base page styles */
 body {
   font-family: sans-serif;
-  background-color: #23116c;
+  background-color: #58575f;
   margin: 0;
   padding: 20px;
 }
@@ -15,7 +15,7 @@ body {
 
 /* Individual episode card */
 .episode-card {
-  background-color: rgb(95, 30, 246);
+  background-color: rgb(130, 126, 139);
   border: 1px solid #ebebeb;
   border-radius: 10px;
   padding: 15px;
@@ -61,4 +61,31 @@ footer {
   margin-top: 30px;
   font-size: 0.85rem;
   color: #666666;
+}
+
+#searchBar {
+  text-align: center;
+  padding: 20px;
+}
+
+#searchInput {
+  padding: 10px;
+  width: 60%;
+  max-width: 400px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+#resultsCount {
+  margin-top: 10px;
+  color: #ffcccc;
+}
+
+#episodeSelect {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
 }
