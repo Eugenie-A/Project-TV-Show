@@ -7,12 +7,30 @@ const episodeSelect = document.getElementById("episodeSelect");
 // Store all episodes so we can filter without re-fetching
 let allEpisodes = [];
 
-// Load episodes from the provided getAllEpisodes() function
-function setup() {
-  allEpisodes = getAllEpisodes();
+// Show a loading message while episodes are being fetched
+root.innerHTML = "<p>Loading episodes... please wait</p>";
 
-  populateDropdown(allEpisodes);
-  displayEpisodes(allEpisodes);
+// Fetch all episodes from TVMaze API once on page load
+async function loadEpisodes() {
+  try {
+    // Send a request to the TVMaze API
+    const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
+    // If the server returns an error, throw a trigger to catch block
+    if (!response.ok) {
+      throw new Error("Failed to fetch episodes");
+    }
+    // Parse the response as JSON
+    const episodes = await response.json();
+    // Save episodes so we can filter later with re-fetching
+    allEpisodes = episodes;
+    // Populate the dropdown and render all episode cards
+    populateDropdown(allEpisodes);
+    displayEpisodes(allEpisodes);
+  } catch {
+    // Show a user-friendly error message if the fetch fails
+    root.innerHTML =
+      "<p>Something went wrong loading episodes. Please try again later.</p>";
+  }
 }
 
 // Filter episodes on every keystroke and update the display
@@ -94,6 +112,3 @@ function formatEpisodeCode(season, number) {
   const e = String(number).padStart(2, "0");
   return `S${s}E${e}`;
 }
-
-// Start the app on page load
-window.onload = setup;
