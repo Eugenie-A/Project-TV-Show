@@ -1,13 +1,13 @@
-// Page elements
+// Get references to page elements
 const root = document.getElementById("root");
 const searchInput = document.getElementById("searchInput");
 const resultsCount = document.getElementById("resultsCount");
 const episodeSelect = document.getElementById("episodeSelect");
 
-// Store all episodes
+// Store all episodes so we can filter without re-fetching
 let allEpisodes = [];
 
-// Load episodes from provided data
+// Load episodes from the provided getAllEpisodes() function
 function setup() {
   allEpisodes = getAllEpisodes();
 
@@ -15,11 +15,11 @@ function setup() {
   displayEpisodes(allEpisodes);
 }
 
-// 🔎 Live search
+// Filter episodes on every keystroke and update the display
 searchInput.addEventListener("input", () => {
   const searchTerm = searchInput.value.toLowerCase();
 
-  const filtered = allEpisodes.filter(ep => {
+  const filtered = allEpisodes.filter((ep) => {
     const name = ep.name.toLowerCase();
     const summary = (ep.summary || "").toLowerCase();
 
@@ -29,13 +29,13 @@ searchInput.addEventListener("input", () => {
   displayEpisodes(filtered);
 });
 
-// 📺 Display episodes
+// Render episode cards and update the results count
 function displayEpisodes(episodes) {
   root.innerHTML = "";
 
   resultsCount.textContent = `Displaying ${episodes.length} / ${allEpisodes.length} episodes`;
 
-  episodes.forEach(ep => {
+  episodes.forEach((ep) => {
     const episodeCode = formatEpisodeCode(ep.season, ep.number);
 
     const div = document.createElement("div");
@@ -54,11 +54,11 @@ function displayEpisodes(episodes) {
   });
 }
 
-// 🔽 Populate dropdown
+// Build the episode selector dropdown with all episodes
 function populateDropdown(episodes) {
   episodeSelect.innerHTML = `<option value="">All Episodes</option>`;
 
-  episodes.forEach(ep => {
+  episodes.forEach((ep) => {
     const option = document.createElement("option");
 
     const code = formatEpisodeCode(ep.season, ep.number);
@@ -70,28 +70,30 @@ function populateDropdown(episodes) {
   });
 }
 
-// 🎯 Jump to episode
+// Show only the selected episode,
+// or all episodes if "All Episodes" is chosen
 episodeSelect.addEventListener("change", () => {
   const selectedId = episodeSelect.value;
 
   if (!selectedId) {
+    // Displays all episodes when "All Episodes" is selected
     displayEpisodes(allEpisodes);
     return;
   }
 
-  const element = document.getElementById(`episode-${selectedId}`);
-
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
-  }
+  // Find the selected episode and display only that one
+  const selectedEpisode = allEpisodes.filter(
+    (ep) => ep.id === Number(selectedId),
+  );
+  displayEpisodes(selectedEpisode);
 });
 
-// 🔢 Format SxxExx
+// Format season and episode numbers as S01E01
 function formatEpisodeCode(season, number) {
   const s = String(season).padStart(2, "0");
   const e = String(number).padStart(2, "0");
   return `S${s}E${e}`;
 }
 
-// Run setup
+// Start the app on page load
 window.onload = setup;
