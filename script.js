@@ -112,3 +112,6 @@ function formatEpisodeCode(season, number) {
   const e = String(number).padStart(2, "0");
   return `S${s}E${e}`;
 }
+
+// Start the app on page load
+loadEpisodes();
