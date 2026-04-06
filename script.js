@@ -13,30 +13,7 @@ const episodeSelect = document.getElementById("episodeSelect");
 let allEpisodes = [];
 
 // Show a loading message while episodes are being fetched
-root.innerHTML = "<p>Loading episodes... please wait</p>";
-
-// Fetch all episodes from TVMaze API once on page load
-async function loadEpisodes() {
-  try {
-    // Send a request to the TVMaze API
-    const response = await fetch("https://api.tvmaze.com/shows/82/episodes");
-    // If the server returns an error, throw a trigger to catch block
-    if (!response.ok) {
-      throw new Error("Failed to fetch episodes");
-    }
-    // Parse the response as JSON
-    const episodes = await response.json();
-    // Save episodes so we can filter later with re-fetching
-    allEpisodes = episodes;
-    // Populate the dropdown and render all episode cards
-    populateDropdown(allEpisodes);
-    displayEpisodes(allEpisodes);
-  } catch {
-    // Show a user-friendly error message if the fetch fails
-    root.innerHTML =
-      "<p>Something went wrong loading episodes. Please try again later.</p>";
-  }
-}
+root.innerHTML = "";
 
 // Filter episodes on every keystroke and update the display
 searchInput.addEventListener("input", () => {
@@ -131,11 +108,10 @@ async function loadShows() {
 
     // Sort alphabetically (case-insensitive)
     allShows = shows.sort((a, b) =>
-      a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
     );
 
     populateShowDropdown(allShows);
-
   } catch (error) {
     root.innerHTML = "<p>❌ Failed to load shows</p>";
     console.error(error);
@@ -150,12 +126,6 @@ function populateShowDropdown(shows) {
     option.textContent = show.name;
     showSelect.appendChild(option);
   });
-
-   // ✅ AUTO-LOAD FIRST SHOW
-  if (shows.length > 0) {
-    showSelect.value = shows[0].id;
-    showSelect.dispatchEvent(new Event("change"));
-  }
 }
 showSelect.addEventListener("change", async () => {
   const showId = showSelect.value;
@@ -170,11 +140,11 @@ showSelect.addEventListener("change", async () => {
     return;
   }
 
-  root.innerHTML = "<p>Loading episodes... ⏳</p>";
+  root.innerHTML = "<p>Loading episodes...</p>";
 
   try {
     const response = await fetch(
-      `https://api.tvmaze.com/shows/${showId}/episodes`
+      `https://api.tvmaze.com/shows/${showId}/episodes`,
     );
 
     if (!response.ok) {
@@ -188,11 +158,10 @@ showSelect.addEventListener("change", async () => {
 
     populateDropdown(allEpisodes);
     displayEpisodes(allEpisodes);
-
   } catch {
     root.innerHTML =
       "<p>Something went wrong loading episodes. Please try again later.</p>";
   }
 });
-loadShows();
 
+loadShows();
