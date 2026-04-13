@@ -1,18 +1,17 @@
-const showSelect = document.getElementById("showSelect");
-// Store shows + cache
-let allShows = [];
-const episodeCache = {};
-
 // Get references to page elements
+const showSelect = document.getElementById("showSelect");
 const root = document.getElementById("root");
 const searchInput = document.getElementById("searchInput");
 const resultsCount = document.getElementById("resultsCount");
 const episodeSelect = document.getElementById("episodeSelect");
 
-// Store all episodes so we can filter without re-fetching
-let allEpisodes = [];
+// Store all shows, episodes and cache fetched episode lists
 
-// Show a loading message while episodes are being fetched
+let allShows = [];
+let allEpisodes = [];
+const episodeCache = {};
+
+// Clear the root element on page load
 root.innerHTML = "";
 
 // Filter episodes on every keystroke and update the display
@@ -95,7 +94,7 @@ function formatEpisodeCode(season, number) {
   return `S${s}E${e}`;
 }
 
-// Start the app on page load
+// Fetch all shows from TVMaze and populate the show selector
 async function loadShows() {
   try {
     const response = await fetch("https://api.tvmaze.com/shows");
@@ -117,6 +116,8 @@ async function loadShows() {
     console.error(error);
   }
 }
+
+// Add every show as an option in the show selector dropdown
 function populateShowDropdown(shows) {
   showSelect.innerHTML = `<option value="">Select a show...</option>`;
 
@@ -132,7 +133,7 @@ showSelect.addEventListener("change", async () => {
 
   if (!showId) return;
 
-  // Use cache if already fetched
+  // Use cached episodes if we have already fetched this show
   if (episodeCache[showId]) {
     allEpisodes = episodeCache[showId];
     populateDropdown(allEpisodes);
@@ -153,7 +154,8 @@ showSelect.addEventListener("change", async () => {
 
     const episodes = await response.json();
 
-    episodeCache[showId] = episodes; // cache it
+    // Save to cache so we don't fetch this show again
+    episodeCache[showId] = episodes;
     allEpisodes = episodes;
 
     populateDropdown(allEpisodes);
@@ -164,4 +166,5 @@ showSelect.addEventListener("change", async () => {
   }
 });
 
+// Start the app by loading all available shows
 loadShows();
