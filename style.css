@@ -4,13 +4,127 @@ body {
   background-color: #58575f;
   margin: 0;
   padding: 20px;
+  color: #fff;
 }
 
-/* Grid layout for episode cards */
-#root {
+h1 {
+  text-align: center;
+  color: #000000;
+}
+
+/* Grid layout for show cards */
+#shows-root {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  padding: 10px;
+  margin-bottom: 100px;
+}
+
+/* Individual show card */
+.show-card {
+  background-color: rgb(100, 97, 110);
+  border: 1px solid #ebebeb;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.show-card:hover {
+  transform: scale(1.025);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+/* Show card image */
+.show-card img {
+  width: 120px;
+  height: 180px;
+  object-fit: contain;
+  object-position: center left;
+  flex-shrink: 0;
+  background-color: #000;
+}
+
+/* Show card info section */
+.show-info {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+/* Clickable show name */
+.show-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: underline;
+  margin: 0 0 5px 0;
+}
+
+.show-name:hover {
+  color: #ffcccc;
+}
+
+.show-details {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 0.8rem;
+  color: #ddd;
+  line-height: 1.4;
+}
+
+/* Show card text */
+.show-card p {
+  font-size: 0.85rem;
+  color: #fff;
+  margin: 2px 0;
+}
+
+/* Show search input */
+#showSearch {
+  display: block;
+  margin: 10px auto;
+  padding: 12px 20px;
+  width: 60%;
+  max-width: 400px;
+  border-radius: 50px;
+  border: none;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Back link */
+#back-link {
+  background: transparent;
+  border: 1px solid #ffcccc;
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #ffcccc;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1rem;
+  border: solid 1px black;
+  padding: 8px 16px;
+  border-radius: 20px;
+}
+
+#back-link:hover {
+  text-decoration: underline;
+  background-color: rgba(255, 204, 204, 0.15);
+}
+
+/* Show title in episodes view */
+#show-title {
+  text-align: center;
+  color: #fff;
+  margin-bottom: 10px;
 }
 
 /* Individual episode card */
@@ -18,10 +132,19 @@ body {
   background-color: rgb(130, 126, 139);
   border: 1px solid #ebebeb;
   border-radius: 10px;
+  overflow: hidden;
   padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+/* Grid for episodes */
+#root {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 10px;
 }
 
 /* Bordered header section inside each card */
@@ -55,49 +178,36 @@ body {
   color: #0a0a0a;
 }
 
+#searchBar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+}
+
+#searchInput,
+#showSelect,
+#episodeSelect {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+  width: 60%;
+  max-width: 500px;
+  box-sizing: border-box;
+  align-items: center;
+}
+
+#resultsCount {
+  margin-bottom: 10px;
+  color: #ffcccc;
+}
+
 /* Footer TVMaze Credit */
 footer {
   text-align: center;
   margin-top: 30px;
   font-size: 0.85rem;
-  color: #666666;
-}
-
-#searchBar {
-  text-align: center;
-  padding: 20px;
-}
-
-#searchInput {
-  padding: 10px;
-  width: 60%;
-  max-width: 400px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-}
-
-#resultsCount {
-  margin-top: 10px;
-  color: #ffcccc;
-}
-
-#episodeSelect {
-  display: block;
-  margin: 10px auto 20px;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
-}
-
-#showSelect {
-  display: block;
-  margin: 10px auto;
-  padding: 10px;
-  width: 60%;
-  max-width: 400px;
-  border-radius: 8px;
-  border: none;
-  font-size: 16px;
+  color: #000000;
 }

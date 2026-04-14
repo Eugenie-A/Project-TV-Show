@@ -9,25 +9,37 @@
   </head>
 
   <body>
-   <select id="showSelect">
-  <option value="">Loading shows...</option>
-</select>
-
-    <div id="searchBar">
-      <input type="text" id="searchInput" placeholder="Search episodes..." />
-      <p id="resultsCount"></p>
+    <!-- Shows listing view -->
+    <div id="shows-view">
+      <h1>TV Shows</h1>
+      <input type="text" id="showSearch" placeholder="Search shows..." />
+      <div id="shows-root"></div>
+    </div>
+    <!-- Episodes view (hidden until a show is selected) -->
+    <div id="episodes-view" hidden>
+      <button id="back-link">← Back to shows</button>
+      <h1>TV Shows</h1>
+      <!-- Search Bar -->
+      <div id="searchBar">
+        <input type="text" id="searchInput" placeholder="Search episodes..." />
+        <p id="resultsCount"></p>
+        <!-- Shows Dropdown -->
+        <select id="showSelect">
+          <option value="">Select a show...</option>
+        </select>
+        <!-- Episode Dropdown-->
+        <select id="episodeSelect">
+          <option value="">Jump to episode...</option>
+        </select>
+      </div>
+      <div id="root"></div>
     </div>
 
-    <select id="episodeSelect">
-      <option value="">Jump to episode...</option>
-    </select>
-
-    <div id="root"></div>
-
-    <!-- Loads YOUR javascript code -->
-    <script src="script.js"></script>
     <footer>
       <p>Data sourced from <a href="https://www.tvmaze.com">TVMaze.com</a></p>
     </footer>
+
+    <!-- Loads YOUR javascript code -->
+    <script src="script.js"></script>
   </body>
 </html>
