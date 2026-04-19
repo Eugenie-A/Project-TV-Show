@@ -21,6 +21,12 @@ h1 {
   margin-bottom: 100px;
 }
 
+#showCount {
+  text-align: center;
+  color: #ffcccc;
+  margin: 5px 0;
+}
+
 /* Individual show card */
 .show-card {
   background-color: rgb(100, 97, 110);
