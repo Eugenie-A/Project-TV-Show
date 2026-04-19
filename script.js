@@ -2,7 +2,6 @@
 const root = document.getElementById("root");
 const showsRoot = document.getElementById("shows-root");
 const searchInput = document.getElementById("searchInput");
-const showSelect = document.getElementById("showSelect");
 const showSearch = document.getElementById("showSearch");
 const resultsCount = document.getElementById("resultsCount");
 const episodeSelect = document.getElementById("episodeSelect");
@@ -82,7 +81,6 @@ function showEpisodesView(show) {
   episodesView.style.display = "block";
   searchInput.value = "";
   episodeSelect.value = "";
-  showSelect.value = show.id;
 }
 
 // Switch back to the shows listing and hide the episodes view
@@ -105,6 +103,8 @@ backLink.addEventListener("click", (e) => {
 // Render show cards in the shows listing
 function displayShows(shows) {
   showsRoot.innerHTML = "";
+  document.getElementById("showCount").textContent =
+    `Displaying ${shows.length} / ${allShows.length} shows`;
   shows.forEach((show) => showsRoot.appendChild(createShowCard(show)));
 }
 
@@ -126,25 +126,6 @@ function populateDropdown(episodes) {
     episodeSelect.appendChild(option);
   });
 }
-
-// Populate show selector dropdown
-function populateShowDropdown() {
-  showSelect.innerHTML = `<option value="">Select a show...</option>`;
-  allShows.forEach((show) => {
-    const option = document.createElement("option");
-    option.value = show.id;
-    option.textContent = show.name;
-    showSelect.appendChild(option);
-  });
-}
-
-// Switch show when selector changes
-showSelect.addEventListener("change", () => {
-  const selectedId = Number(showSelect.value);
-  if (!selectedId) return;
-  const show = allShows.find((s) => s.id === selectedId);
-  if (show) loadEpisodes(show);
-});
 
 // Filter shows by name, genre or summary as the user types
 showSearch.addEventListener("input", () => {
@@ -235,7 +216,6 @@ async function loadShows() {
     );
 
     displayShows(allShows);
-    populateShowDropdown();
   } catch (error) {
     root.innerHTML =
       "<p>Something went wrong loading shows. Please try again later.</p>";
